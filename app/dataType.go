@@ -87,3 +87,7 @@ lalala~~~~`
 	fmt.Printf("snake is %v years old\n", num2["snake"])
 
 }
+
+func init(){
+	fmt.Printf("This is func init\n")
+}
