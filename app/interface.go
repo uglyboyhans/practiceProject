@@ -2,6 +2,26 @@ package main
 
 import "fmt"
 
+
+//定义interface
+type Men interface {
+	sayHi()
+	sing(lyrics string)
+	guzzle(bearStein string)
+}
+
+type YoungChap interface {
+	sayHi()
+	sing(lyrics string)
+	borrowMoney(amount float32)
+}
+
+type ElderlyGent interface {
+	sayHi()
+	sing(lyrics string)
+	spendSalary(amount float32)
+}
+
 type Human struct {
 	name  string
 	age   int
@@ -44,25 +64,6 @@ func (e Employee) spendSalary(amount float32) {
 
 func (k Kodomo) borrowMoney(amount float32) {
 	k.loan += amount
-}
-
-//定义interface
-type Men interface {
-	sayHi()
-	sing(lyrics string)
-	guzzle(bearStein string)
-}
-
-type YoungChap interface {
-	sayHi()
-	sing(lyrics string)
-	borrowMoney(amount float32)
-}
-
-type ElderlyGent interface {
-	sayHi()
-	sing(lyrics string)
-	spendSalary(amount float32)
 }
 
 func testInterface() {

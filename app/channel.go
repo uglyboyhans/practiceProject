@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func sum(a []int, c chan int) {
+func sum(a []int, c chan<- int) {
 	total := 0
 	for _, v := range a {
 		total += v
@@ -17,14 +17,17 @@ func testChannel() {
 	也就是如果读取（value := <-ch）它将会被阻塞，直到有数据接收。
 	其次，任何发送（ch<-5）将会被阻塞，直到数据被读出。
 	无缓冲channel是在多个goroutine之间同步很棒的工具。
-*/
+    */
 	a := []int{9, 3, 6, -2, 5, 24, -13, 4, 7}
 	c := make(chan int)
-	go sum(a[: len(a)/3], c)
-	go sum(a[len(a)/3: len(a)/3*2], c)
-	go sum(a[len(a)/3*2: ], c)
+	cWrite := chan<- int(c) // 类型转换
+	fmt.Println("that")
+	go sum(a[: len(a)/3], cWrite)
+	go sum(a[len(a)/3: len(a)/3*2], cWrite)
+	go sum(a[len(a)/3*2: ], cWrite)
 	// 以上go同时执行完了过后（所有channel都准备好了）才会执行下一句接收
-	x, y, z := <-c, <-c, <-c
+	//cRead := <-chan int(c)
+	x, y, z := <-chan int(c), <-chan int(c), <-chan int(c)
 	fmt.Println(x, "+", y, "+", z, "=", x+y+z)
 }
 
